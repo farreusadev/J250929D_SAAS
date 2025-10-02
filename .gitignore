@@ -55,9 +55,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Compiled assets (solo en desarrollo)
-# Los assets compilados finales irán a static/
+# TailAdmin source (mantener para referencia pero excluir build y node_modules)
 docs/tailadmin-html-pro-2.0-main/build/
+docs/tailadmin-html-pro-2.0-main/node_modules/
 
 # Cursor
 .cursor/
