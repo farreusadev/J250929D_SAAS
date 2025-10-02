@@ -534,7 +534,53 @@ J250929D_SAAS/
 
 ---
 
-**Última actualización:** 2025-10-02 17:45
+### 18:00 | Rama: `feature/landing_page` | Commit: `d90dad3`
+**Refactorización: Landing Page a App Django Dedicada**
+- Movimiento de código a aplicación propia:
+  - `config/views.py` → `apps/shared/landing_page/views.py`
+  - `templates/landing.html` → `apps/shared/landing_page/templates/landing_page/landing.html`
+- Configuración de URLs de la app:
+  - Creado `apps/shared/landing_page/urls.py`
+  - app_name = "landing_page"
+  - Pattern: "/" → landing_page view
+- Actualización de routing principal:
+  - `config/urls.py` ahora usa `include("apps.shared.landing_page.urls")`
+- Eliminación de archivos obsoletos:
+  - `config/views.py` (ya no necesario)
+  - `templates/landing.html` (movido a la app)
+- Creación de paquetes Python:
+  - `apps/__init__.py`
+  - `apps/shared/__init__.py`
+
+**Estructura final de la app:**
+```
+apps/shared/landing_page/
+├── __init__.py
+├── admin.py
+├── apps.py (LandingPageConfig)
+├── models.py
+├── tests.py
+├── urls.py (con app_name)
+├── views.py (landing_page view)
+└── templates/
+    └── landing_page/
+        └── landing.html
+```
+
+**Beneficios:**
+- ✅ Mejor organización (Django best practices)
+- ✅ App auto-contenida
+- ✅ Fácil de mantener y testear
+- ✅ Template namespacing
+- ✅ URL routing estructurado
+
+**Archivos:** 12 modificados
+**App:** Ya estaba en INSTALLED_APPS
+**Push:** ✅ Exitoso a GitHub
+
+---
+
+**Última actualización:** 2025-10-02 18:00
 **Rama actual:** `feature/landing_page`
 **Próximo objetivo:** Testing de la landing page y merge a develop
 
