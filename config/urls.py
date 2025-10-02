@@ -16,10 +16,9 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
-from . import views
+from django.urls import path, include
 
 urlpatterns = [
-    path("", views.landing_page, name="landing"),
+    path("", include("apps.shared.landing_page.urls")),
     path("admin/", admin.site.urls),
 ]
