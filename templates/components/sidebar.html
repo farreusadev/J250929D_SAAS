@@ -1,0 +1,96 @@
+{% load static %}
+<!-- Sidebar -->
+<aside
+  :class="sidebarToggle ? 'translate-x-0 xl:w-[90px]' : '-translate-x-full'"
+  class="sidebar fixed top-0 left-0 z-9999 flex h-screen w-[290px] flex-col overflow-y-auto border-r border-gray-200 bg-white px-5 transition-all duration-300 xl:static xl:translate-x-0 dark:border-gray-800 dark:bg-black"
+  @click.outside="sidebarToggle = false"
+>
+  <!-- Sidebar Header -->
+  <div
+    :class="sidebarToggle ? 'justify-center' : 'justify-between'"
+    class="sidebar-header flex items-center gap-2 pt-8 pb-7"
+  >
+    <a href="{% url 'home' %}">
+      <span class="logo" :class="sidebarToggle ? 'hidden' : ''">
+        <img class="dark:hidden" src="{% static 'tailadmin/images/logo/logo.svg' %}" alt="Logo" />
+        <img class="hidden dark:block" src="{% static 'tailadmin/images/logo/logo-dark.svg' %}" alt="Logo" />
+      </span>
+      <img
+        class="logo-icon"
+        :class="sidebarToggle ? 'xl:block' : 'hidden'"
+        src="{% static 'tailadmin/images/logo/logo-icon.svg' %}"
+        alt="Logo"
+      />
+    </a>
+  </div>
+  
+  <!-- Sidebar Menu -->
+  <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
+    <nav x-data="{selected: $persist('{% block sidebar_selected %}Dashboard{% endblock %}')}">
+      
+      <!-- Menu Group -->
+      <div>
+        <h3 class="mb-4 text-xs leading-[20px] text-gray-400 uppercase">
+          <span class="menu-group-title" :class="sidebarToggle ? 'xl:hidden' : ''">
+            MENÚ
+          </span>
+          <svg :class="sidebarToggle ? 'xl:block hidden' : 'hidden'" class="menu-group-icon mx-auto fill-current" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M5.99915 10.2451C6.96564 10.2451 7.74915 11.0286 7.74915 11.9951V12.0051C7.74915 12.9716 6.96564 13.7551 5.99915 13.7551C5.03265 13.7551 4.24915 12.9716 4.24915 12.0051V11.9951C4.24915 11.0286 5.03265 10.2451 5.99915 10.2451ZM17.9991 10.2451C18.9656 10.2451 19.7491 11.0286 19.7491 11.9951V12.0051C19.7491 12.9716 18.9656 13.7551 17.9991 13.7551C17.0326 13.7551 16.2491 12.9716 16.2491 12.0051V11.9951C16.2491 11.0286 17.0326 10.2451 17.9991 10.2451ZM13.7491 11.9951C13.7491 11.0286 12.9656 10.2451 11.9991 10.2451C11.0326 10.2451 10.2491 11.0286 10.2491 11.9951V12.0051C10.2491 12.9716 11.0326 13.7551 11.9991 13.7551C12.9656 13.7551 13.7491 12.9716 13.7491 12.0051V11.9951Z" fill="currentColor"/>
+          </svg>
+        </h3>
+        
+        <ul class="mb-6 flex flex-col gap-1">
+          
+          <!-- Dashboard -->
+          <li>
+            <a
+              href="{% url 'dashboard' %}"
+              class="menu-item group {% if request.resolver_match.url_name == 'dashboard' %}menu-item-active{% else %}menu-item-inactive{% endif %}"
+            >
+              <svg class="{% if request.resolver_match.url_name == 'dashboard' %}menu-item-icon-active{% else %}menu-item-icon-inactive{% endif %}" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 3.25C4.25736 3.25 3.25 4.25736 3.25 5.5V8.99998C3.25 10.2426 4.25736 11.25 5.5 11.25H9C10.2426 11.25 11.25 10.2426 11.25 8.99998V5.5C11.25 4.25736 10.2426 3.25 9 3.25H5.5ZM4.75 5.5C4.75 5.08579 5.08579 4.75 5.5 4.75H9C9.41421 4.75 9.75 5.08579 9.75 5.5V8.99998C9.75 9.41419 9.41421 9.74998 9 9.74998H5.5C5.08579 9.74998 4.75 9.41419 4.75 8.99998V5.5ZM5.5 12.75C4.25736 12.75 3.25 13.7574 3.25 15V18.5C3.25 19.7426 4.25736 20.75 5.5 20.75H9C10.2426 20.75 11.25 19.7427 11.25 18.5V15C11.25 13.7574 10.2426 12.75 9 12.75H5.5ZM4.75 15C4.75 14.5858 5.08579 14.25 5.5 14.25H9C9.41421 14.25 9.75 14.5858 9.75 15V18.5C9.75 18.9142 9.41421 19.25 9 19.25H5.5C5.08579 19.25 4.75 18.9142 4.75 18.5V15ZM12.75 5.5C12.75 4.25736 13.7574 3.25 15 3.25H18.5C19.7426 3.25 20.75 4.25736 20.75 5.5V8.99998C20.75 10.2426 19.7426 11.25 18.5 11.25H15C13.7574 11.25 12.75 10.2426 12.75 8.99998V5.5ZM15 4.75C14.5858 4.75 14.25 5.08579 14.25 5.5V8.99998C14.25 9.41419 14.5858 9.74998 15 9.74998H18.5C18.9142 9.74998 19.25 9.41419 19.25 8.99998V5.5C19.25 5.08579 18.9142 4.75 18.5 4.75H15ZM15 12.75C13.7574 12.75 12.75 13.7574 12.75 15V18.5C12.75 19.7426 13.7574 20.75 15 20.75H18.5C19.7426 20.75 20.75 19.7427 20.75 18.5V15C20.75 13.7574 19.7426 12.75 18.5 12.75H15ZM14.25 15C14.25 14.5858 14.5858 14.25 15 14.25H18.5C18.9142 14.25 19.25 14.5858 19.25 15V18.5C19.25 18.9142 18.9142 19.25 18.5 19.25H15C14.5858 19.25 14.25 18.9142 14.25 18.5V15Z" fill="currentColor"/>
+              </svg>
+              <span class="menu-item-text" :class="sidebarToggle ? 'xl:hidden' : ''">
+                Dashboard
+              </span>
+            </a>
+          </li>
+          
+          <!-- Usuarios -->
+          <li>
+            <a
+              href="{% url 'users:list' %}"
+              class="menu-item group {% if 'users' in request.path %}menu-item-active{% else %}menu-item-inactive{% endif %}"
+            >
+              <svg class="{% if 'users' in request.path %}menu-item-icon-active{% else %}menu-item-icon-inactive{% endif %}" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 4.25C10.2051 4.25 8.75 5.70507 8.75 7.5C8.75 9.29493 10.2051 10.75 12 10.75C13.7949 10.75 15.25 9.29493 15.25 7.5C15.25 5.70507 13.7949 4.25 12 4.25ZM7.25 7.5C7.25 4.87665 9.37665 2.75 12 2.75C14.6234 2.75 16.75 4.87665 16.75 7.5C16.75 10.1234 14.6234 12.25 12 12.25C9.37665 12.25 7.25 10.1234 7.25 7.5ZM4.75 18C4.75 15.3766 6.87665 13.25 9.5 13.25H14.5C17.1234 13.25 19.25 15.3766 19.25 18C19.25 18.9665 18.4665 19.75 17.5 19.75H6.5C5.5335 19.75 4.75 18.9665 4.75 18ZM9.5 14.75C7.70507 14.75 6.25 16.2051 6.25 18C6.25 18.1381 6.36193 18.25 6.5 18.25H17.5C17.6381 18.25 17.75 18.1381 17.75 18C17.75 16.2051 16.2949 14.75 14.5 14.75H9.5Z" fill="currentColor"/>
+              </svg>
+              <span class="menu-item-text" :class="sidebarToggle ? 'xl:hidden' : ''">
+                Usuarios
+              </span>
+            </a>
+          </li>
+          
+          <!-- Configuración -->
+          <li>
+            <a
+              href="{% url 'settings' %}"
+              class="menu-item group {% if request.resolver_match.url_name == 'settings' %}menu-item-active{% else %}menu-item-inactive{% endif %}"
+            >
+              <svg class="{% if request.resolver_match.url_name == 'settings' %}menu-item-icon-active{% else %}menu-item-icon-inactive{% endif %}" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M17.5 9.5C17.5 9.22 17.28 9 17 9H15.78C15.64 8.38 15.38 7.8 15.03 7.28L15.87 6.44C16.06 6.25 16.06 5.94 15.87 5.75L14.25 4.13C14.06 3.94 13.75 3.94 13.56 4.13L12.72 4.97C12.2 4.62 11.62 4.36 11 4.22V3C11 2.72 10.78 2.5 10.5 2.5H8.5C8.22 2.5 8 2.72 8 3V4.22C7.38 4.36 6.8 4.62 6.28 4.97L5.44 4.13C5.25 3.94 4.94 3.94 4.75 4.13L3.13 5.75C2.94 5.94 2.94 6.25 3.13 6.44L3.97 7.28C3.62 7.8 3.36 8.38 3.22 9H2C1.72 9 1.5 9.22 1.5 9.5V11.5C1.5 11.78 1.72 12 2 12H3.22C3.36 12.62 3.62 13.2 3.97 13.72L3.13 14.56C2.94 14.75 2.94 15.06 3.13 15.25L4.75 16.87C4.94 17.06 5.25 17.06 5.44 16.87L6.28 16.03C6.8 16.38 7.38 16.64 8 16.78V18C8 18.28 8.22 18.5 8.5 18.5H10.5C10.78 18.5 11 18.28 11 18V16.78C11.62 16.64 12.2 16.38 12.72 16.03L13.56 16.87C13.75 17.06 14.06 17.06 14.25 16.87L15.87 15.25C16.06 15.06 16.06 14.75 15.87 14.56L15.03 13.72C15.38 13.2 15.64 12.62 15.78 12H17C17.28 12 17.5 11.78 17.5 11.5V9.5ZM9.5 13C7.84 13 6.5 11.66 6.5 10C6.5 8.34 7.84 7 9.5 7C11.16 7 12.5 8.34 12.5 10C12.5 11.66 11.16 13 9.5 13Z" fill="currentColor"/>
+              </svg>
+              <span class="menu-item-text" :class="sidebarToggle ? 'xl:hidden' : ''">
+                Configuración
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+      
+    </nav>
+  </div>
+  
+</aside>
+

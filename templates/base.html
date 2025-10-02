@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title>{% block title %}Dashboard{% endblock %} | {{ request.tenant.name|default:"SaaS Platform" }}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'tailadmin/favicon.ico' %}">
+    
+    <!-- TailAdmin CSS -->
+    <link rel="stylesheet" href="{% static 'tailadmin/css/style.css' %}">
+    
+    <!-- Custom CSS -->
+    {% block extra_css %}{% endblock %}
+    
+    <meta name="description" content="{% block meta_description %}Multi-tenant SaaS Platform{% endblock %}">
+</head>
+
+<body 
+    x-data="{ 
+        page: '{% block page_name %}dashboard{% endblock %}', 
+        loaded: true, 
+        darkMode: false, 
+        stickyMenu: false, 
+        sidebarToggle: false, 
+        scrollTop: false 
+    }"
+    x-init="
+        darkMode = JSON.parse(localStorage.getItem('darkMode')) || false;
+        $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
+    :class="{'dark bg-gray-900': darkMode === true}"
+>
+    <!-- Preloader -->
+    {% include 'components/preloader.html' %}
+    
+    <!-- Page Wrapper -->
+    <div class="flex h-screen overflow-hidden">
+        
+        <!-- Sidebar -->
+        {% include 'components/sidebar.html' %}
+        
+        <!-- Content Area -->
+        <div class="relative flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
+            
+            <!-- Small Device Overlay -->
+            {% include 'components/overlay.html' %}
+            
+            <!-- Main Content -->
+            <main>
+                <!-- Header -->
+                {% include 'components/header.html' %}
+                
+                <!-- Page Content -->
+                <div class="mx-auto max-w-(--breakpoint-2xl) p-4 md:p-6">
+                    {% block content %}
+                    <!-- Content goes here -->
+                    {% endblock %}
+                </div>
+            </main>
+            <!-- /Main Content -->
+            
+        </div>
+        <!-- /Content Area -->
+        
+    </div>
+    <!-- /Page Wrapper -->
+    
+    <!-- TailAdmin JS Bundle (Alpine.js + Components) -->
+    <script src="{% static 'tailadmin/js/bundle.js' %}"></script>
+    
+    <!-- HTMX -->
+    <script src="{% static 'custom/js/htmx.min.js' %}"></script>
+    
+    <!-- Custom JS -->
+    {% block extra_js %}{% endblock %}
+    
+</body>
+</html>
+

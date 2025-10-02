@@ -1,0 +1,132 @@
+{% load static %}
+<!-- Header -->
+<header
+  x-data="{menuToggle: false, searchToggle: false, notificationToggle: false, userToggle: false}"
+  class="sticky top-0 z-99999 flex w-full border-gray-200 bg-white xl:border-b dark:border-gray-800 dark:bg-gray-900"
+>
+  <div class="flex grow flex-col items-center justify-between xl:flex-row xl:px-6">
+    <div class="flex w-full items-center justify-between gap-2 border-b border-gray-200 px-3 py-3 sm:gap-4 lg:py-4 xl:justify-normal xl:border-b-0 xl:px-0 dark:border-gray-800">
+      
+      <!-- Hamburger Toggle Button -->
+      <button
+        :class="sidebarToggle ? 'xl:bg-transparent dark:xl:bg-transparent bg-gray-100 dark:bg-gray-800' : ''"
+        class="z-99999 flex h-10 w-10 items-center justify-center rounded-lg border-gray-200 text-gray-500 xl:h-11 xl:w-11 xl:border dark:border-gray-800 dark:text-gray-400"
+        @click.stop="sidebarToggle = !sidebarToggle"
+      >
+        <!-- Hamburger Icon (Desktop) -->
+        <svg class="hidden fill-current xl:block" width="16" height="12" viewBox="0 0 16 12" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M0.583252 1C0.583252 0.585788 0.919038 0.25 1.33325 0.25H14.6666C15.0808 0.25 15.4166 0.585786 15.4166 1C15.4166 1.41421 15.0808 1.75 14.6666 1.75L1.33325 1.75C0.919038 1.75 0.583252 1.41422 0.583252 1ZM0.583252 11C0.583252 10.5858 0.919038 10.25 1.33325 10.25L14.6666 10.25C15.0808 10.25 15.4166 10.5858 15.4166 11C15.4166 11.4142 15.0808 11.75 14.6666 11.75L1.33325 11.75C0.919038 11.75 0.583252 11.4142 0.583252 11ZM1.33325 5.25C0.919038 5.25 0.583252 5.58579 0.583252 6C0.583252 6.41421 0.919038 6.75 1.33325 6.75L7.99992 6.75C8.41413 6.75 8.74992 6.41421 8.74992 6C8.74992 5.58579 8.41413 5.25 7.99992 5.25L1.33325 5.25Z" fill=""/>
+        </svg>
+        
+        <!-- Hamburger Icon (Mobile open) -->
+        <svg :class="sidebarToggle ? 'hidden' : 'block xl:hidden'" class="fill-current xl:hidden" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M3.25 6C3.25 5.58579 3.58579 5.25 4 5.25L20 5.25C20.4142 5.25 20.75 5.58579 20.75 6C20.75 6.41421 20.4142 6.75 20 6.75L4 6.75C3.58579 6.75 3.25 6.41422 3.25 6ZM3.25 18C3.25 17.5858 3.58579 17.25 4 17.25L20 17.25C20.4142 17.25 20.75 17.5858 20.75 18C20.75 18.4142 20.4142 18.75 20 18.75L4 18.75C3.58579 18.75 3.25 18.4142 3.25 18ZM4 11.25C3.58579 11.25 3.25 11.5858 3.25 12C3.25 12.4142 3.58579 12.75 4 12.75L12 12.75C12.4142 12.75 12.75 12.4142 12.75 12C12.75 11.5858 12.4142 11.25 12 11.25L4 11.25Z" fill=""/>
+        </svg>
+        
+        <!-- Close Icon (Mobile) -->
+        <svg :class="sidebarToggle ? 'block xl:hidden' : 'hidden'" class="fill-current" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M6.21967 7.28131C5.92678 6.98841 5.92678 6.51354 6.21967 6.22065C6.51256 5.92775 6.98744 5.92775 7.28033 6.22065L11.999 10.9393L16.7176 6.22078C17.0105 5.92789 17.4854 5.92788 17.7782 6.22078C18.0711 6.51367 18.0711 6.98855 17.7782 7.28144L13.0597 12L17.7782 16.7186C18.0711 17.0115 18.0711 17.4863 17.7782 17.7792C17.4854 18.0721 17.0105 18.0721 16.7176 17.7792L11.999 13.0607L7.28033 17.7794C6.98744 18.0722 6.51256 18.0722 6.21967 17.7794C5.92678 17.4865 5.92678 17.0116 6.21967 16.7187L10.9384 12L6.21967 7.28131Z" fill=""/>
+        </svg>
+      </button>
+      
+      <!-- Logo (Mobile) -->
+      <a href="{% url 'home' %}" class="xl:hidden">
+        <img class="dark:hidden" src="{% static 'tailadmin/images/logo/logo.svg' %}" alt="Logo" />
+        <img class="hidden dark:block" src="{% static 'tailadmin/images/logo/logo-dark.svg' %}" alt="Logo" />
+      </a>
+      
+      <!-- Right Side Icons -->
+      <div class="flex items-center gap-2 sm:gap-4">
+        
+        <!-- Dark Mode Toggle -->
+        <button
+          @click="darkMode = !darkMode"
+          class="flex h-10 w-10 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+        >
+          <svg x-show="!darkMode" class="fill-current" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 17.75C9.66 17.75 7.75 15.84 7.75 13.5C7.75 11.16 9.66 9.25 12 9.25C14.34 9.25 16.25 11.16 16.25 13.5C16.25 15.84 14.34 17.75 12 17.75ZM12 10.75C10.49 10.75 9.25 11.99 9.25 13.5C9.25 15.01 10.49 16.25 12 16.25C13.51 16.25 14.75 15.01 14.75 13.5C14.75 11.99 13.51 10.75 12 10.75Z" fill=""/>
+            <path d="M12 4.75C11.59 4.75 11.25 4.41 11.25 4V2C11.25 1.59 11.59 1.25 12 1.25C12.41 1.25 12.75 1.59 12.75 2V4C12.75 4.41 12.41 4.75 12 4.75ZM18.43 7.32C18.24 7.32 18.05 7.25 17.9 7.1C17.61 6.81 17.61 6.33 17.9 6.04L19.32 4.62C19.61 4.33 20.09 4.33 20.38 4.62C20.67 4.91 20.67 5.39 20.38 5.68L18.96 7.1C18.81 7.25 18.62 7.32 18.43 7.32ZM5.57 7.32C5.38 7.32 5.19 7.25 5.04 7.1L3.62 5.68C3.33 5.39 3.33 4.91 3.62 4.62C3.91 4.33 4.39 4.33 4.68 4.62L6.1 6.04C6.39 6.33 6.39 6.81 6.1 7.1C5.95 7.25 5.76 7.32 5.57 7.32ZM22 14.25H20C19.59 14.25 19.25 13.91 19.25 13.5C19.25 13.09 19.59 12.75 20 12.75H22C22.41 12.75 22.75 13.09 22.75 13.5C22.75 13.91 22.41 14.25 22 14.25ZM4 14.25H2C1.59 14.25 1.25 13.91 1.25 13.5C1.25 13.09 1.59 12.75 2 12.75H4C4.41 12.75 4.75 13.09 4.75 13.5C4.75 13.91 4.41 14.25 4 14.25ZM18.43 19.68C18.24 19.68 18.05 19.61 17.9 19.46C17.61 19.17 17.61 18.69 17.9 18.4L19.32 16.98C19.61 16.69 20.09 16.69 20.38 16.98C20.67 17.27 20.67 17.75 20.38 18.04L18.96 19.46C18.81 19.61 18.62 19.68 18.43 19.68ZM5.57 19.68C5.38 19.68 5.19 19.61 5.04 19.46L3.62 18.04C3.33 17.75 3.33 17.27 3.62 16.98C3.91 16.69 4.39 16.69 4.68 16.98L6.1 18.4C6.39 18.69 6.39 19.17 6.1 19.46C5.95 19.61 5.76 19.68 5.57 19.68ZM12 22.75C11.59 22.75 11.25 22.41 11.25 22V20C11.25 19.59 11.59 19.25 12 19.25C12.41 19.25 12.75 19.59 12.75 20V22C12.75 22.41 12.41 22.75 12 22.75Z" fill=""/>
+          </svg>
+          <svg x-show="darkMode" class="fill-current" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
+            <path d="M21.0672 11.8568L20.4253 11.469L21.0672 11.8568ZM12.1432 2.93276L11.7553 2.29085V2.29085L12.1432 2.93276ZM7.37554 20.013L7.017 19.3647L7.37554 20.013ZM2.98698 14.1267L2.33864 13.7683L2.98698 14.1267ZM12.5311 3.57467L12.9189 4.21657L12.5311 3.57467ZM20.4253 11.469C19.4172 13.1373 17.5882 14.25 15.5 14.25V15.75C18.0349 15.75 20.273 14.3939 21.7092 12.2447L20.4253 11.469ZM15.5 14.25C11.9101 14.25 9 11.3399 9 7.75H7.5C7.5 12.1683 11.0817 15.75 15.5 15.75V14.25ZM9 7.75C9 5.66184 10.1127 3.83281 11.7811 2.82466L11.0053 1.54085C8.9561 2.77299 7.6 5.01104 7.6 7.54999H9ZM12.1432 2.93276C12.0817 2.93276 12.0368 2.92893 12.0078 2.92893C11.9788 2.92893 11.9339 2.92893 11.8724 2.92893V1.42893C11.9788 1.42893 12.0078 1.42893 12.0368 1.42893C12.0368 1.42893 12.0817 1.42893 12.1432 1.42893V2.93276ZM11.8724 2.92893C8.90939 2.92893 6.5 5.33832 6.5 8.30132H8C8 6.16685 9.73792 4.42893 11.8724 4.42893V2.92893ZM6.5 8.30132C6.5 9.61801 6.94694 10.8365 7.68597 11.8072L8.73188 10.7613C8.20015 10.0656 7.9 9.21801 7.9 8.30132H6.5Z" fill=""/>
+          </svg>
+        </button>
+        
+        <!-- User Dropdown -->
+        <div class="relative" x-data="{userToggle: false}" @click.outside="userToggle = false">
+          <button
+            @click="userToggle = !userToggle"
+            class="flex items-center gap-3 rounded-full"
+          >
+            <span class="hidden text-right lg:block">
+              <span class="block text-sm font-medium text-gray-900 dark:text-white">
+                {{ user.get_full_name|default:user.username }}
+              </span>
+              <span class="block text-xs text-gray-500 dark:text-gray-400">
+                {{ user.email }}
+              </span>
+            </span>
+            
+            <span class="h-12 w-12 rounded-full overflow-hidden border-2 border-gray-200 dark:border-gray-700">
+              {% if user.profile.avatar %}
+                <img src="{{ user.profile.avatar.url }}" alt="User" class="h-full w-full object-cover">
+              {% else %}
+                <div class="flex h-full w-full items-center justify-center bg-brand-500 text-white font-semibold">
+                  {{ user.username|slice:":1"|upper }}
+                </div>
+              {% endif %}
+            </span>
+          </button>
+          
+          <!-- Dropdown Menu -->
+          <div
+            x-show="userToggle"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 scale-95"
+            x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-75"
+            x-transition:leave-start="opacity-100 scale-100"
+            x-transition:leave-end="opacity-0 scale-95"
+            class="absolute right-0 mt-4 flex w-62 flex-col rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-800 dark:bg-gray-900"
+            style="display: none;"
+          >
+            <ul class="flex flex-col gap-5 border-b border-gray-200 px-6 py-5 dark:border-gray-800">
+              <li>
+                <a href="{% url 'profile' %}" class="flex items-center gap-3 text-sm text-gray-700 hover:text-brand-500 dark:text-gray-300">
+                  <svg class="fill-current" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M10 10C11.933 10 13.5 8.433 13.5 6.5C13.5 4.567 11.933 3 10 3C8.067 3 6.5 4.567 6.5 6.5C6.5 8.433 8.067 10 10 10Z" fill=""/>
+                    <path d="M10 11.5C6.692 11.5 4 14.192 4 17.5H16C16 14.192 13.308 11.5 10 11.5Z" fill=""/>
+                  </svg>
+                  Mi Perfil
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'settings' %}" class="flex items-center gap-3 text-sm text-gray-700 hover:text-brand-500 dark:text-gray-300">
+                  <svg class="fill-current" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M17.5 9.5C17.5 9.22 17.28 9 17 9H15.78C15.64 8.38 15.38 7.8 15.03 7.28L15.87 6.44C16.06 6.25 16.06 5.94 15.87 5.75L14.25 4.13C14.06 3.94 13.75 3.94 13.56 4.13L12.72 4.97C12.2 4.62 11.62 4.36 11 4.22V3C11 2.72 10.78 2.5 10.5 2.5H8.5C8.22 2.5 8 2.72 8 3V4.22C7.38 4.36 6.8 4.62 6.28 4.97L5.44 4.13C5.25 3.94 4.94 3.94 4.75 4.13L3.13 5.75C2.94 5.94 2.94 6.25 3.13 6.44L3.97 7.28C3.62 7.8 3.36 8.38 3.22 9H2C1.72 9 1.5 9.22 1.5 9.5V11.5C1.5 11.78 1.72 12 2 12H3.22C3.36 12.62 3.62 13.2 3.97 13.72L3.13 14.56C2.94 14.75 2.94 15.06 3.13 15.25L4.75 16.87C4.94 17.06 5.25 17.06 5.44 16.87L6.28 16.03C6.8 16.38 7.38 16.64 8 16.78V18C8 18.28 8.22 18.5 8.5 18.5H10.5C10.78 18.5 11 18.28 11 18V16.78C11.62 16.64 12.2 16.38 12.72 16.03L13.56 16.87C13.75 17.06 14.06 17.06 14.25 16.87L15.87 15.25C16.06 15.06 16.06 14.75 15.87 14.56L15.03 13.72C15.38 13.2 15.64 12.62 15.78 12H17C17.28 12 17.5 11.78 17.5 11.5V9.5ZM9.5 13C7.84 13 6.5 11.66 6.5 10C6.5 8.34 7.84 7 9.5 7C11.16 7 12.5 8.34 12.5 10C12.5 11.66 11.16 13 9.5 13Z" fill=""/>
+                  </svg>
+                  Configuración
+                </a>
+              </li>
+            </ul>
+            <div class="px-6 py-4">
+              <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="flex w-full items-center gap-3 text-sm text-gray-700 hover:text-error-500 dark:text-gray-300">
+                  <svg class="fill-current" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M13.5 16H8.5C7.67 16 7 15.33 7 14.5V12.5C7 12.22 7.22 12 7.5 12C7.78 12 8 12.22 8 12.5V14.5C8 14.78 8.22 15 8.5 15H13.5C13.78 15 14 14.78 14 14.5V5.5C14 5.22 13.78 5 13.5 5H8.5C8.22 5 8 5.22 8 5.5V7.5C8 7.78 7.78 8 7.5 8C7.22 8 7 7.78 7 7.5V5.5C7 4.67 7.67 4 8.5 4H13.5C14.33 4 15 4.67 15 5.5V14.5C15 15.33 14.33 16 13.5 16Z" fill=""/>
+                    <path d="M10.5 10.75H3.5C3.22 10.75 3 10.53 3 10.25C3 9.97 3.22 9.75 3.5 9.75H10.5L9.13 8.38C8.94 8.19 8.94 7.88 9.13 7.69C9.32 7.5 9.63 7.5 9.82 7.69L12 9.87C12.19 10.06 12.19 10.37 12 10.56L9.82 12.74C9.63 12.93 9.32 12.93 9.13 12.74C8.94 12.55 8.94 12.24 9.13 12.05L10.5 10.75Z" fill=""/>
+                  </svg>
+                  Cerrar Sesión
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+</header>
+
