@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es" x-data="{ darkMode: localStorage.getItem('darkMode') === 'true' }" 
+      x-init="$watch('darkMode', val => localStorage.setItem('darkMode', val))"
+      :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J250929D SaaS - Plataforma Multi-Tenant</title>
+    {% load static %}
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'tailadmin/favicon.ico' %}">
+    
+    <!-- TailAdmin CSS -->
+    <link rel="stylesheet" href="{% static 'tailadmin/css/style.css' %}">
+</head>
+<body class="bg-gradient-to-br from-primary to-secondary dark:from-gray-900 dark:to-gray-800 min-h-screen">
+    
+    <!-- Header/Menu -->
+    <header class="fixed top-0 left-0 right-0 z-999 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <img src="{% static 'tailadmin/images/logo/logo.svg' %}" 
+                         alt="Logo" 
+                         class="h-10 w-10 dark:hidden">
+                    <img src="{% static 'tailadmin/images/logo/logo-dark.svg' %}" 
+                         alt="Logo" 
+                         class="hidden h-10 w-10 dark:block">
+                    <span class="text-2xl font-bold text-gray-900 dark:text-white">
+                        J250929D SaaS
+                    </span>
+                </div>
+                
+                <!-- Menu -->
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors">
+                        Características
+                    </a>
+                    <a href="#pricing" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors">
+                        Precios
+                    </a>
+                    <a href="#contact" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors">
+                        Contacto
+                    </a>
+                </nav>
+                
+                <!-- Actions -->
+                <div class="flex items-center gap-4">
+                    <!-- Dark Mode Toggle -->
+                    <button 
+                        @click="darkMode = !darkMode"
+                        class="flex h-10 w-10 items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                        aria-label="Toggle dark mode"
+                    >
+                        <svg x-show="!darkMode" class="h-5 w-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                        <svg x-show="darkMode" class="h-5 w-5 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                    </button>
+                    
+                    <!-- Login Button -->
+                    <a href="#" 
+                       class="inline-flex items-center justify-center rounded-md bg-primary px-6 py-2.5 text-center font-medium text-white hover:bg-opacity-90 transition-all duration-300 hover:shadow-lg">
+                        Iniciar Sesión
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="flex items-center justify-center min-h-screen pt-20">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto text-center">
+                
+                <!-- Logo Grande -->
+                <div class="mb-8 flex justify-center">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-primary/20 dark:bg-primary/10 blur-3xl rounded-full"></div>
+                        <img src="{% static 'tailadmin/images/logo/logo-icon.svg' %}" 
+                             alt="Logo" 
+                             class="relative h-32 w-32 dark:hidden animate-float">
+                        <img src="{% static 'tailadmin/images/logo/logo-icon.svg' %}" 
+                             alt="Logo" 
+                             class="relative hidden h-32 w-32 dark:block animate-float">
+                    </div>
+                </div>
+                
+                <!-- Título Principal -->
+                <h1 class="mb-6 text-5xl font-bold text-gray-900 dark:text-white sm:text-6xl lg:text-7xl">
+                    Bienvenido a
+                    <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                        J250929D SaaS
+                    </span>
+                </h1>
+                
+                <!-- Subtítulo -->
+                <p class="mb-8 text-xl text-gray-600 dark:text-gray-300 sm:text-2xl">
+                    Plataforma Multi-Tenant de última generación
+                </p>
+                
+                <!-- Descripción -->
+                <p class="mb-12 text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+                    Gestiona múltiples clientes con facilidad. Una solución completa con 
+                    <span class="font-semibold text-primary">Tailwind CSS</span>, 
+                    <span class="font-semibold text-primary">Alpine.js</span> y 
+                    <span class="font-semibold text-primary">HTMX</span>.
+                </p>
+                
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#" 
+                       class="inline-flex items-center justify-center rounded-lg bg-primary px-8 py-4 text-center text-lg font-semibold text-white hover:bg-opacity-90 transition-all duration-300 hover:shadow-2xl hover:scale-105 w-full sm:w-auto">
+                        <span>Comenzar Ahora</span>
+                        <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                    </a>
+                    
+                    <a href="#features" 
+                       class="inline-flex items-center justify-center rounded-lg border-2 border-primary bg-transparent px-8 py-4 text-center text-lg font-semibold text-primary hover:bg-primary hover:text-white transition-all duration-300 w-full sm:w-auto">
+                        Ver Más
+                    </a>
+                </div>
+                
+                <!-- Features Grid -->
+                <div class="mt-20 grid grid-cols-1 gap-6 sm:grid-cols-3">
+                    
+                    <!-- Feature 1 -->
+                    <div class="rounded-lg bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                        <div class="mb-4 flex justify-center">
+                            <div class="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                                <svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">
+                            Rápido
+                        </h3>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            Rendimiento optimizado con las últimas tecnologías
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 2 -->
+                    <div class="rounded-lg bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                        <div class="mb-4 flex justify-center">
+                            <div class="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                                <svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">
+                            Seguro
+                        </h3>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            Protección de datos de nivel empresarial
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 3 -->
+                    <div class="rounded-lg bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                        <div class="mb-4 flex justify-center">
+                            <div class="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                                <svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">
+                            Flexible
+                        </h3>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            Personalizable según tus necesidades
+                        </p>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="fixed bottom-0 left-0 right-0 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm border-t border-gray-200 dark:border-gray-700 py-4">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-sm text-gray-600 dark:text-gray-400">
+                © 2025 J250929D SaaS. Todos los derechos reservados. | 
+                <span class="text-primary font-semibold">Powered by Django + TailAdmin</span>
+            </p>
+        </div>
+    </footer>
+    
+    <!-- TailAdmin JS Bundle (Alpine.js) -->
+    <script src="{% static 'tailadmin/js/bundle.js' %}"></script>
+    
+    <!-- Animación float -->
+    <style>
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</body>
+</html>
+
