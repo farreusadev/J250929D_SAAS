@@ -59,6 +59,10 @@ yarn-error.log*
 docs/tailadmin-html-pro-2.0-main/build/
 docs/tailadmin-html-pro-2.0-main/node_modules/
 
+# Archivos con datos sensibles
+docs/notes.txt
+docs/tail.pdf
+
 # Cursor
 .cursor/
 

@@ -439,3 +439,6 @@ class HTMXViewTest(TestCase):
         self.assertNotContains(response, '<html')
 ```
 
+
+
+
